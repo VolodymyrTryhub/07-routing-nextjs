@@ -8,12 +8,12 @@ const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-type NotesResponse = {
+export type NotesResponse = {
   notes: Note[];
   totalPages: number;
 };
 
-interface GetNotesParams {
+export interface GetNotesParams {
   page?: number;
   search?: string;
 }
