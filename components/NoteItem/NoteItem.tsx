@@ -1,18 +1,16 @@
-// components/NoteItem/NoteItem.tsx
-
 import Link from 'next/link';
-import { Note } from '@/types/note';
+import type { Note } from '@/types/note';
 
 type Props = {
   item: Note;
 };
 
-const NoteItem = ({ item }: Props) => {
+export default function NoteItem({ item }: Props) {
   return (
     <li>
-      <Link href={`/notes/${item.id}`}>View details</Link>
+      <Link href={`/notes/${item.id}`} scroll={false}>
+        View details
+      </Link>
     </li>
   );
-};
-
-export default NoteItem;
+}

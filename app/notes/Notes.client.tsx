@@ -81,7 +81,7 @@ const NotesClient = () => {
       <NoteList notes={data.notes} />
 
       {isModalOpen && (
-        <Modal onClose={closeModal}>
+        <Modal>
           <NoteForm onClose={closeModal} />
         </Modal>
       )}
