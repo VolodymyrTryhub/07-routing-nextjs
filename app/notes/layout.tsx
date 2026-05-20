@@ -1,13 +1,7 @@
 type LayoutProps = {
   children: React.ReactNode;
-  modal: React.ReactNode;
 };
 
-export default function Layout({ children, modal }: LayoutProps) {
-  return (
-    <>
-      {children}
-      {modal}
-    </>
-  );
+export default function NotesLayout({ children }: LayoutProps) {
+  return <>{children}</>;
 }

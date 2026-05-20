@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-
 import './globals.css';
 
 import Header from '@/components/Header/Header';
@@ -11,14 +10,23 @@ export const metadata: Metadata = {
   description: 'Notes application',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+  modal,
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
         <TanStackProvider>
           <Header />
 
-          <main>{children}</main>
+          <main>
+            {children}
+            {modal}
+          </main>
 
           <Footer />
         </TanStackProvider>
