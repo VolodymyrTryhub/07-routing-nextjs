@@ -1,5 +1,5 @@
 import { getNotes } from '@/lib/api';
-import NoteList from '@/components/NoteList/NoteList';
+import NotesClient from './Notes.client';
 
 type Props = {
   params: Promise<{
@@ -25,7 +25,7 @@ export default async function FilterPage({ params }: Props) {
     <>
       <h2>Filter: {currentFilter}</h2>
 
-      <NoteList notes={filteredNotes} />
+      <NotesClient notes={filteredNotes} />
     </>
   );
 }
