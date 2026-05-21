@@ -8,24 +8,31 @@ const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-export type NotesResponse = {
+type NotesResponse = {
   notes: Note[];
   totalPages: number;
 };
 
-export interface GetNotesParams {
+interface GetNotesParams {
   page?: number;
   search?: string;
+  tag?: string;
 }
 
 export const getNotes = async ({
   page = 1,
   search = '',
+  tag,
 }: GetNotesParams): Promise<NotesResponse> => {
   const res = await axios.get<NotesResponse>('/notes', {
     params: {
       page,
       search,
+
+      ...(tag &&
+        tag !== 'all' && {
+          tag,
+        }),
     },
   });
 

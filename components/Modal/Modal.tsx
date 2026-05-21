@@ -22,7 +22,7 @@ export default function Modal({ children }: ModalProps) {
     window.addEventListener('keydown', handleEsc);
 
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
 
       window.removeEventListener('keydown', handleEsc);
     };
