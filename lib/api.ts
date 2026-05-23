@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import type { Note, CreateNoteData } from '@/types/note';
 
 axios.defaults.baseURL = 'https://next-v1-notes-api.goit.study';
@@ -24,19 +23,28 @@ export const getNotes = async ({
   search = '',
   tag,
 }: GetNotesParams): Promise<NotesResponse> => {
-  const res = await axios.get<NotesResponse>('/notes', {
+  const res = await axios.get('/notes', {
     params: {
       page,
+      perPage: 12,
       search,
 
       ...(tag &&
         tag !== 'all' && {
-          tag,
+          category: tag,
         }),
     },
   });
 
-  return res.data;
+  const filteredNotes =
+    tag && tag !== 'all'
+      ? res.data.notes.filter((note: Note) => note.category.name === tag)
+      : res.data.notes;
+
+  return {
+    notes: filteredNotes,
+    totalPages: Math.ceil(filteredNotes.length / 12),
+  };
 };
 
 export const fetchNoteById = async (id: string): Promise<Note> => {

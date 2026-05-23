@@ -36,7 +36,7 @@ export default function NotePreviewClient({ id }: Props) {
   }
 
   return (
-    <Modal>
+    <Modal onClose={() => router.back()}>
       <button onClick={() => router.back()}>Close</button>
 
       <h2>{note.title}</h2>

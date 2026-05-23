@@ -12,6 +12,8 @@ import NoteList from '@/components/NoteList/NoteList';
 
 import { getNotes } from '@/lib/api';
 
+import css from './page.module.css';
+
 interface Props {
   tag: string;
 }
@@ -40,11 +42,12 @@ export default function NotesClient({ tag }: Props) {
       getNotes({
         page,
         search,
-
         tag: tag === 'all' ? undefined : tag,
       }),
 
-    placeholderData: previous => previous,
+    staleTime: 0,
+
+    gcTime: 0,
   });
 
   if (isLoading) {
@@ -57,18 +60,20 @@ export default function NotesClient({ tag }: Props) {
 
   return (
     <>
-      <button type="button" onClick={() => setIsModalOpen(true)}>
-        Create note +
-      </button>
+      <div className={css.toolbar}>
+        <SearchBox onChange={updateSearch} />
 
-      <SearchBox onChange={value => updateSearch(value)} />
+        <Pagination currentPage={page} pageCount={data.totalPages} onPageChange={setPage} />
+
+        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+          Create note +
+        </button>
+      </div>
 
       <NoteList notes={data.notes} />
 
-      <Pagination pageCount={data.totalPages} currentPage={page} onPageChange={setPage} />
-
       {isModalOpen && (
-        <Modal>
+        <Modal onClose={() => setIsModalOpen(false)}>
           <NoteForm onClose={() => setIsModalOpen(false)} />
         </Modal>
       )}

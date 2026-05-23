@@ -1,3 +1,5 @@
+import css from '../LayoutNotes.module.css';
+
 type LayoutProps = {
   children: React.ReactNode;
   sidebar: React.ReactNode;
@@ -5,10 +7,10 @@ type LayoutProps = {
 
 export default function FilterLayout({ children, sidebar }: LayoutProps) {
   return (
-    <div style={{ display: 'flex', gap: '30px' }}>
-      <aside>{sidebar}</aside>
+    <div className={css.container}>
+      <aside className={css.sidebar}>{sidebar}</aside>
 
-      <main>{children}</main>
+      <main className={css.notesWrapper}>{children}</main>
     </div>
   );
 }
