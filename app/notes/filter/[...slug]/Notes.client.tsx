@@ -38,16 +38,19 @@ export default function NotesClient({ tag }: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['notes', page, search, tag],
 
-    queryFn: () =>
-      getNotes({
+    queryFn: async () => {
+      const result = await getNotes({
         page,
         search,
         tag: tag === 'all' ? undefined : tag,
-      }),
+      });
+
+      return result;
+    },
 
     staleTime: 0,
-
-    gcTime: 0,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {

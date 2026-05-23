@@ -23,7 +23,7 @@ export const getNotes = async ({
   search = '',
   tag,
 }: GetNotesParams): Promise<NotesResponse> => {
-  const res = await axios.get('/notes', {
+  const res = await axios.get<NotesResponse>('/notes', {
     params: {
       page,
       perPage: 12,
@@ -31,20 +31,12 @@ export const getNotes = async ({
 
       ...(tag &&
         tag !== 'all' && {
-          category: tag,
+          tag,
         }),
     },
   });
 
-  const filteredNotes =
-    tag && tag !== 'all'
-      ? res.data.notes.filter((note: Note) => note.category.name === tag)
-      : res.data.notes;
-
-  return {
-    notes: filteredNotes,
-    totalPages: Math.ceil(filteredNotes.length / 12),
-  };
+  return res.data;
 };
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
